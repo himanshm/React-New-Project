@@ -1,4 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Handjet:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Handjet:wght@400;700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -22,6 +22,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   color: white;
 }
+/*
 
 header {
   display: flex;
@@ -78,6 +79,7 @@ ul progress::-webkit-progress-value {
   background: #4562f3;
   border-radius: 6px;
 }
+*/
 
 label {
   display: block;
@@ -100,7 +102,7 @@ input {
   font-size: 1rem;
   color: #07302a;
 }
-
+/*
 .button {
   font: inherit;
   padding: 0.5rem;
