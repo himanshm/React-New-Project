@@ -1,10 +1,17 @@
-import Button from './components/Button';
-import Container from './components/Container';
+import { IconButton } from './components/IconButton';
 
 function App() {
+  function HeartIcon() {
+    return <span>❤️</span>;
+  }
   return (
     <main>
-      <Container as={Button}>Click Me!</Container>
+      <IconButton
+        icon={HeartIcon}
+        onClick={() => console.log('Button clicked!')}
+      >
+        Like
+      </IconButton>
     </main>
   );
 }
