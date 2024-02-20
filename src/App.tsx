@@ -15,10 +15,10 @@ function App() {
         type='number'
       />
       <p>
-        <Button el='anchor'>Submit</Button>
+        <Button>Submit</Button>
       </p>
       <p>
-        <Button el='button'>Reset</Button>
+        <Button href='https://google.com'>Reset</Button>
       </p>
     </main>
   );
