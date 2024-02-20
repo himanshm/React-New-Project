@@ -1,3 +1,4 @@
+import Button from './components/Button';
 import Input from './components/Input';
 
 function App() {
@@ -13,6 +14,12 @@ function App() {
         id='age'
         type='number'
       />
+      <p>
+        <Button el='anchor'>Submit</Button>
+      </p>
+      <p>
+        <Button el='button'>Reset</Button>
+      </p>
     </main>
   );
 }

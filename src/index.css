@@ -102,7 +102,6 @@ input {
   font-size: 1rem;
   color: #07302a;
 }
-/*
 .button {
   font: inherit;
   padding: 0.5rem;
@@ -118,6 +117,8 @@ input {
   background-color: #217086;
   border-color: #217086;
 }
+/*
+
 
 #add-timer {
   max-width: 20rem;
