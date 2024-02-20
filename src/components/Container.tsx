@@ -1,11 +1,12 @@
-import { type ElementType } from 'react';
+import { type ReactNode, type ElementType } from 'react';
 
 type ContainerProps = {
   as: ElementType;
+  children: ReactNode;
 };
 
-const Container = function ({ as: Component }: ContainerProps) {
-  return <Component />;
+const Container = function ({ as: Component, children }: ContainerProps) {
+  return <Component>{children}</Component>;
 };
 
 export default Container;
