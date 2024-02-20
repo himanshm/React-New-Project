@@ -1,17 +1,16 @@
-import { IconButton } from './components/IconButton';
+import { useRef } from 'react';
+import Input from './components/Input';
 
 function App() {
-  function HeartIcon() {
-    return <span>❤️</span>;
-  }
+  const input = useRef<HTMLInputElement>(null);
   return (
     <main>
-      <IconButton
-        icon={HeartIcon}
-        onClick={() => console.log('Button clicked!')}
-      >
-        Like
-      </IconButton>
+      <Input
+        type='text'
+        label='Test'
+        id='test'
+        ref={input}
+      />
     </main>
   );
 }
