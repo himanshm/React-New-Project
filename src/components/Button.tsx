@@ -5,6 +5,7 @@ type ButtonProps = ComponentPropsWithoutRef<'button'> & {
 };
 
 // the absence of the href prop is not enough information to deduct that it must be a button.
+// Check the last commit for the better approach
 
 type AnchorProps = ComponentPropsWithoutRef<'a'> & {
   href?: string;
