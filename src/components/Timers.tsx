@@ -1,4 +1,4 @@
-import { useTimersContext } from '../store/timers-context';
+import { useTimersContext } from '../store/useTimersContext.ts';
 import Timer from './Timer';
 
 const Timers = function () {
