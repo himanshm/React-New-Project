@@ -44,7 +44,21 @@ type Action = {
 const timersReducer = function (
   state: TimersState,
   action: Action
-): TimersState {};
+): TimersState {
+  if (action.type === 'START_TIMERS') {
+    return {
+      ...state,
+      isRunning: true,
+    };
+  }
+
+  if (action.type === 'STOP_TIMERS') {
+    return {
+      ...state,
+      isRunning: false,
+    };
+  }
+};
 
 const TimersContextProvider = function ({
   children,
