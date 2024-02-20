@@ -2,6 +2,9 @@ import {
   type ReactNode,
   type ComponentPropsWithoutRef,
   FormEvent,
+  useImperativeHandle,
+  forwardRef,
+  useRef,
 } from 'react';
 
 type FormProps = {
@@ -9,7 +12,29 @@ type FormProps = {
   onSave: (value: unknown) => void;
 } & ComponentPropsWithoutRef<'form'>;
 
-const Form = function ({ children, onSave, ...props }: FormProps) {
+export type FormRef = {
+  clear: () => void;
+};
+
+// first generic type here is the type that describes the type of the ref that's forwarded. The second generic type is the type of the props that the wrapped function will receive.
+
+const Form = forwardRef<FormRef, FormProps>(function (
+  { children, onSave, ...props },
+  ref
+) {
+  /* ref I'm creating with useRef inside of the Form component, and that's the ref that's connected to the native form element.It is not the incoming ref. */
+
+  const form = useRef<HTMLFormElement>(null);
+  // useImperativeHandle:  this hook basically only works in a component that also receives a forwarded ref,
+  useImperativeHandle(ref, () => {
+    return {
+      clear() {
+        console.log(`Clearing form with ref: ${form.current}`);
+        form.current?.reset();
+      },
+    };
+  });
+
   function submitHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -21,10 +46,11 @@ const Form = function ({ children, onSave, ...props }: FormProps) {
     <form
       onSubmit={submitHandler}
       {...props}
+      ref={form}
     >
       {children}
     </form>
   );
-};
+});
 
 export default Form;

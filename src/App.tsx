@@ -1,15 +1,23 @@
 import Input from './components/Input';
-import Form from './components/Form';
+import Form, { type FormRef } from './components/Form';
 import Button from './components/Button';
+import { useRef } from 'react';
 
 function App() {
+  const customForm = useRef<FormRef>(null);
+
   const saveHandler = function (data: unknown) {
     const extractedData = data as { username: string; age: string };
     console.log(extractedData);
+    // Clear the form using refs
+    customForm.current?.clear();
   };
   return (
     <main>
-      <Form onSave={saveHandler}>
+      <Form
+        onSave={saveHandler}
+        ref={customForm}
+      >
         <Input
           label='User Name'
           type='text'
