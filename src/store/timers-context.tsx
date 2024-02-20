@@ -35,11 +35,21 @@ export const useTimersContext = function () {
 type TimerContextProviderProps = {
   children: ReactNode;
 };
-
-// action will be the message you are sending with help of dispatch. It's really up to you which shape and form that action should have. But it is quite common to work with action objects where you have some property that uniquely identifies the different actions and then potentially some extra data that might belong to an action.
-type Action = {
-  type: 'ADD_TIMER' | 'START_TIMERS' | 'STOP_TIMERS';
+// Use discrimindated union type to define the action type
+type startTimersAction = {
+  type: 'START_TIMERS';
 };
+
+type stopTimersAction = {
+  type: 'STOP_TIMERS';
+};
+
+type addTimerAction = {
+  type: 'ADD_TIMER';
+  payload: Timer;
+};
+// action will be the message you are sending with help of dispatch. It's really up to you which shape and form that action should have. But it is quite common to work with action objects where you have some property that uniquely identifies the different actions and then potentially some extra data that might belong to an action.
+type Action = startTimersAction | stopTimersAction | addTimerAction;
 
 const timersReducer = function (
   state: TimersState,
@@ -58,6 +68,21 @@ const timersReducer = function (
       isRunning: false,
     };
   }
+
+  if (action.type === 'ADD_TIMER') {
+    return {
+      ...state,
+      timers: [
+        ...state.timers,
+        {
+          name: action.payload.name,
+          duration: action.payload.duration,
+        },
+      ],
+    };
+  }
+
+  return state;
 };
 
 const TimersContextProvider = function ({
@@ -68,10 +93,10 @@ const TimersContextProvider = function ({
   const [timersState, dispatch] = useReducer(timersReducer, initialState);
 
   const contextValue: TimersContextValue = {
-    isRunning: true,
-    timers: [],
+    isRunning: timersState.isRunning,
+    timers: timersState.timers,
     addTimer: function (timerData: Timer) {
-      dispatch({ type: 'ADD_TIMER' });
+      dispatch({ type: 'ADD_TIMER', payload: timerData });
     },
     startTimers: function () {
       dispatch({ type: 'START_TIMERS' });
