@@ -1,4 +1,4 @@
-import { type ReactNode, createContext, useContext } from 'react';
+import { type ReactNode, createContext, useContext, useReducer } from 'react';
 
 type Timer = {
   name: string;
@@ -8,6 +8,10 @@ type Timer = {
 type TimersState = {
   isRunning: boolean;
   timers: Timer[];
+};
+const initialState: TimersState = {
+  isRunning: false,
+  timers: [],
 };
 
 type TimersContextValue = TimersState & {
@@ -32,20 +36,34 @@ type TimerContextProviderProps = {
   children: ReactNode;
 };
 
+// action will be the message you are sending with help of dispatch. It's really up to you which shape and form that action should have. But it is quite common to work with action objects where you have some property that uniquely identifies the different actions and then potentially some extra data that might belong to an action.
+type Action = {
+  type: 'ADD_TIMER' | 'START_TIMERS' | 'STOP_TIMERS';
+};
+
+const timersReducer = function (
+  state: TimersState,
+  action: Action
+): TimersState {};
+
 const TimersContextProvider = function ({
   children,
 }: TimerContextProviderProps) {
+  /* So what's this reducerFn here? Well, that should be a function that's automatically executed by React whenever we dispatch a new action and we'll be able to dispatch such an action with help of the return value of useReducer. Because useReducer does return a value, to be precise, it returns an array which we can therefore destructure with array destructuring, which has exactly two elements. The first element is the current state managed by useReducer. So we could name this timersState. The second element is a dispatch function, which we can therefore call dispatch, which allows us to trigger a state change because the idea with useReducer is that we can send messages, you could say, that will lead to the generation of a new state. The component function to which useReducer belongs will then be executed again and the new state will be made available through this timersState constant here. So through that first element of that array that's returned by useReducer. And it's this reducer function that will be responsible for generating the new state. It is a function that will be executed by React whenever a new message is sent, a new action is dispatched, and its job is to then produce a new state. */
+
+  const [timersState, dispatch] = useReducer(timersReducer, initialState);
+
   const contextValue: TimersContextValue = {
     isRunning: true,
     timers: [],
     addTimer: function (timerData: Timer) {
-      // ...
+      dispatch({ type: 'ADD_TIMER' });
     },
     startTimers: function () {
-      // ...
+      dispatch({ type: 'START_TIMERS' });
     },
     stopTimers: function () {
-      // ...
+      dispatch({ type: 'STOP_TIMERS' });
     },
   };
   return (
