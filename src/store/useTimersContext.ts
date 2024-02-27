@@ -5,7 +5,7 @@ export const useTimersContext = function () {
   const timersCtx = useContext(TimersContext);
 
   if (timersCtx === null) {
-    throw new Error('TimersContext is null - that should not be the case!');
+    throw new Error('TimersContext is null - that should not be the case! TimersContext was used outside the ContextProvider!');
   }
 
   return timersCtx;
